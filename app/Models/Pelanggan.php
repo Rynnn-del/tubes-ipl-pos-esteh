@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pelanggan extends Model
 {
-    //
+    protected $table = 'pelanggan';
+    protected $primaryKey = 'id_pelanggan';
+    protected $guarded = []; // Mengizinkan semua kolom diisi data
+
+    public function pesanan() {
+        return $this->hasMany(Pesanan::class, 'id_pelanggan');
+    }
 }
