@@ -13,3 +13,4 @@ Route::get('/kasir', [TransaksiController::class, 'index']);
 
 // Jalur untuk mengirim data saat tombol bayar diklik
 Route::post('/kasir/bayar', [TransaksiController::class, 'store']);
+
