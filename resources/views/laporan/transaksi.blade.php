@@ -189,6 +189,7 @@
                 <th>Metode Pembayaran</th>
                 <th>Total Bayar</th>
                 <th>Status</th>
+                <th>Aksi</th>
             </tr>
         </thead>
 
@@ -203,10 +204,18 @@
                     <td>{{ $transaksi->pembayaran->metode_pembayaran ?? '-' }}</td>
                     <td>Rp {{ number_format($transaksi->total_bayar, 0, ',', '.') }}</td>
                     <td>{{ $transaksi->status_transaksi }}</td>
+                    <td>
+                        <a href="{{ url('/struk/' . $transaksi->id_transaksi) }}"
+                        target="_blank"
+                        style="padding:8px 12px; background:#d35400; color:white;
+                                text-decoration:none; border-radius:5px; font-size:12px;">
+                            Cetak Struk
+                        </a>
+                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="8" class="empty">
+                    <td colspan="9" class="empty">
                         Belum ada data transaksi.
                     </td>
                 </tr>
