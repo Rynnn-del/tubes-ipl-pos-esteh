@@ -11,6 +11,6 @@ class Pelanggan extends Model
     protected $guarded = []; // Mengizinkan semua kolom diisi data
 
     public function pesanan() {
-        return $this->hasMany(Pesanan::class, 'id_pelanggan');
+        return $this->hasMany(Pesanan::class, 'id_pelanggan', 'id_pelanggan');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\DetailPesanan;
 use App\Models\Transaksi;
 use App\Models\Pembayaran;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
@@ -32,7 +33,7 @@ class TransaksiController extends Controller
             // A. Buat Data Pesanan Baru
             $pesanan = Pesanan::create([
                 'id_pelanggan' => $request->id_pelanggan ?? 1, // Sementara default pelanggan 1
-                'id_user' => 2,      // Sementara default kasir (id: 2)
+                'id_user' => Auth::id(),      // Sementara default kasir (id: 2)
                 'tanggal_pesanan' => now(),
                 'status_pesanan' => 'Selesai',
                 'total_pesanan' => $request->total_harga
@@ -54,7 +55,7 @@ class TransaksiController extends Controller
                 'id_pesanan' => $pesanan->id_pesanan,
                 'id_user' => 2,
                 'tanggal_transaksi' => now(),
-                'total_bayar' => $request->nominal_bayar,
+                'total_bayar' => $request->total_harga, // Pakai total_harga (tagihan), bukan nominal_bayar
                 'status_transaksi' => 'Lunas'
             ]);
 
