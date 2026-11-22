@@ -11,12 +11,12 @@ class Transaksi extends Model
     protected $guarded = [];
 
     public function pesanan() {
-        return $this->belongsTo(Pesanan::class, 'id_pesanan');
+        return $this->belongsTo(Pesanan::class, 'id_pesanan', 'id_pesanan');
     }
     public function user() {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_user', 'id_user');
     }
     public function pembayaran() {
-        return $this->hasOne(Pembayaran::class, 'id_transaksi');
+        return $this->hasOne(Pembayaran::class, 'id_transaksi', 'id_transaksi');
     }
 }

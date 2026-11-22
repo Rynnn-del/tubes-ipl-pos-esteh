@@ -54,7 +54,7 @@ class TransaksiController extends Controller
                 'id_pesanan' => $pesanan->id_pesanan,
                 'id_user' => 2,
                 'tanggal_transaksi' => now(),
-                'total_bayar' => $request->nominal_bayar,
+                'total_bayar' => $request->total_harga, // Pakai total_harga (tagihan), bukan nominal_bayar
                 'status_transaksi' => 'Lunas'
             ]);
 
