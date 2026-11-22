@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\StrukController;
 
 // Arahkan halaman utama langsung ke /kasir (kalau belum login otomatis dilempar ke /login)
 Route::get('/', function () {
@@ -20,12 +22,14 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-// Rute Kasir & Transaksi (Bisa diakses Admin dan Kasir)
+// Rute Kasir, Transaksi, Laporan & Struk (Bisa diakses Admin dan Kasir)
 Route::middleware(['auth', 'role:Admin,Kasir'])->group(function () {
     Route::get('/kasir', [TransaksiController::class, 'index'])->name('kasir.index');
     Route::post('/kasir/bayar', [TransaksiController::class, 'store'])->name('kasir.bayar');
 
-    // Nanti Vina bisa menaruh rute laporan transaksi & cetak struk di dalam grup ini
+    // Halaman laporan transaksi & cetak struk (Vina)
+    Route::get('/laporan/transaksi', [LaporanController::class, 'transaksi']);
+    Route::get('/struk/{id}', [StrukController::class, 'cetak']);
 });
 
 // Rute Khusus Admin (Nanti Nabila bisa menaruh rute CRUD Menu & Stok di dalam grup ini)
