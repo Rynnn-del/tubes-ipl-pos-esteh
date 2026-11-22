@@ -1,16 +1,17 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\LaporanController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Controllers\TransaksiController;
-
-// Jalur untuk membuka halaman kasir
+// Halaman kasir
 Route::get('/kasir', [TransaksiController::class, 'index']);
-
-// Jalur untuk mengirim data saat tombol bayar diklik
 Route::post('/kasir/bayar', [TransaksiController::class, 'store']);
 
+// Halaman laporan transaksi
+Route::get('/laporan/transaksi', [LaporanController::class, 'transaksi']);
