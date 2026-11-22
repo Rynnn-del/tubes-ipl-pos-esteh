@@ -31,7 +31,7 @@ class TransaksiController extends Controller
         try {
             // A. Buat Data Pesanan Baru
             $pesanan = Pesanan::create([
-                'id_pelanggan' => 1, // Sementara default pelanggan 1
+                'id_pelanggan' => $request->id_pelanggan ?? 1, // Sementara default pelanggan 1
                 'id_user' => 2,      // Sementara default kasir (id: 2)
                 'tanggal_pesanan' => now(),
                 'status_pesanan' => 'Selesai',
@@ -67,7 +67,11 @@ class TransaksiController extends Controller
             ]);
 
             DB::commit(); // Simpan permanen ke database
-            return response()->json(['status' => 'sukses', 'pesan' => 'Transaksi Berhasil!']);
+            return response()->json([
+                'status' => 'sukses',
+                'pesan' => 'Transaksi Berhasil Disimpan!',
+                'id_transaksi' => $transaksi->id_transaksi
+            ]);
 
         } catch (\Exception $e) {
             DB::rollback(); // Batalkan semua penulisan database jika error
