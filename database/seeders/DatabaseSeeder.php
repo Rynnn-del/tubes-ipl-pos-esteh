@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Menu;
 use App\Models\StokBahanBaku;
+use App\Models\Pelanggan;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -66,6 +67,13 @@ class DatabaseSeeder extends Seeder
             'satuan' => 'Gram',
             'batas_minimum' => 500,
             'tanggal_update' => now()
+        ]);
+
+        // 4. Membuat Data Pelanggan Default (ID 1 untuk pembeli umum/walk-in)
+        Pelanggan::create([
+            'nama_pelanggan' => 'Pelanggan Umum',
+            'no_hp' => '-',
+            'alamat' => '-'
         ]);
     }
 }
