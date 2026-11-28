@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'POS Es Teh')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -17,15 +18,19 @@
                 </div>
 
                 <nav class="p-4 space-y-1 text-sm font-medium">
-                    <a href="{{ url('/kasir') }}" 
+                    <a href="{{ url('/kasir') }}"
                        class="block px-4 py-2.5 rounded-lg transition {{ request()->is('kasir*') || request()->is('pos*') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                         Layar Kasir
                     </a>
-                    <a href="{{ url('/menu') }}" 
-                       class="block px-4 py-2.5 rounded-lg transition {{ request()->is('menu*') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
-                        Menu &amp; Stok
-                    </a>
-                    <a href="{{ url('/laporan/transaksi') }}" 
+
+                    @if(Auth::check() && Auth::user()->role === 'Admin')
+                        <a href="{{ url('/menu') }}"
+                           class="block px-4 py-2.5 rounded-lg transition {{ request()->is('menu*') || request()->is('stok*') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+                            Menu &amp; Stok
+                        </a>
+                    @endif
+
+                    <a href="{{ url('/laporan/transaksi') }}"
                        class="block px-4 py-2.5 rounded-lg transition {{ request()->is('laporan*') ? 'bg-emerald-50 text-emerald-700 font-semibold' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                         Laporan Penjualan
                     </a>
@@ -39,7 +44,7 @@
                 </div>
                 <form action="{{ url('/logout') }}" method="POST">
                     @csrf
-                    <button type="submit" 
+                    <button type="submit"
                             class="w-full text-left px-4 py-2 rounded-lg text-red-600 hover:bg-red-50 font-medium transition cursor-pointer">
                         Keluar
                     </button>
